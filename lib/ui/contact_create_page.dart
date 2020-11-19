@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import "package:flutter/material.dart";
+import 'package:image_picker/image_picker.dart';
 
 class ContactCreate extends StatefulWidget {
   @override
@@ -7,6 +10,22 @@ class ContactCreate extends StatefulWidget {
 
 class _ContactCreateState extends State<ContactCreate> {
   @override
+  File _image;
+
+  final picker = ImagePicker();
+
+  Future _getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print("No image selected");
+      }
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -22,17 +41,15 @@ class _ContactCreateState extends State<ContactCreate> {
           Padding(
             padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Center(
-              child: Container(
-                child: Icon(
-                  Icons.verified_user,
-                  size: 100.0,
-                  color: Colors.white,
+              child: GestureDetector(
+                child: Image.asset(
+                  "images/person.png",
+                  width: 300,
+                  height: 300,
                 ),
-                width: 180,
-                height: 180,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(125),
-                    color: Colors.black),
+                onTap: () {
+                  _getImage();
+                },
               ),
             ),
           )
