@@ -1,5 +1,6 @@
 import 'package:agenda_contatos/helpers/contact_helper.dart';
 import 'package:agenda_contatos/ui/contact_create_page.dart';
+import 'package:agenda_contatos/ui/contact_page.dart';
 import "package:flutter/material.dart";
 import 'dart:io';
 
@@ -103,6 +104,14 @@ class _HomePageState extends State<HomePage> {
           ]),
         ),
       ),
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ContactPage(
+                      contact: contacts[index],
+                    )));
+      },
     ));
   }
 }
