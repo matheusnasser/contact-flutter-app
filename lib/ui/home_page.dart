@@ -55,8 +55,7 @@ class _HomePageState extends State<HomePage> {
           child: Icon(Icons.add, size: 18.0),
           backgroundColor: Colors.red,
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ContactCreate()));
+            _showContactPage();
           },
         ),
         body: ListView.builder(
@@ -105,13 +104,17 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ContactPage(
-                      contact: contacts[index],
-                    )));
+        _showContactPage(contact: contacts[index]);
       },
     ));
+  }
+
+  void _showContactPage({Contact contact}) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ContactPage(
+                  contact: contact,
+                )));
   }
 }
